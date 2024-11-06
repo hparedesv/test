@@ -1,0 +1,543 @@
+{
+	"info": {
+		"_postman_id": "22592ce6-ce0f-4ead-8f74-8cb108993797",
+		"name": "asur_prueba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34805200",
+		"_collection_link": "https://cloudy-crescent-701421.postman.co/workspace/My-Workspace~75a29032-da81-47fa-8f4e-45abb6d1d351/collection/34805200-22592ce6-ce0f-4ead-8f74-8cb108993797?action=share&source=collection_link&creator=34805200"
+	},
+	"item": [
+		{
+			"name": "entity",
+			"item": [
+				{
+					"name": "create_table",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tableName\": \"productos_patitos\",\r\n  \"fields\": {\r\n    \"nombre\": \"TEXT\",\r\n    \"proveedosr\": \"TEXT\",\r\n    \"cantidad_varia\": \"INTEGER\",\r\n    \"precio\": \"FLOAT\"\r\n  }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/entities/create-table",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"create-table"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_valor__campo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Producto B\",\r\n    \"proveedor\": \"prov1\",\r\n    \"cantidad\": 112,\r\n    \"precio\": 1225.5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/entities/add-data/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"add-data",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit_table",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Producto A Actualizado\",\r\n  \"cantidad\": 20,\r\n  \"precio\": 18.0\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/entities/edit-data/productos/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"edit-data",
+								"productos",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_campo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/entities/delete-data/productos/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"delete-data",
+								"productos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_tabla",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/entities/delete-table/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"delete-table",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_tablas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/entities/all-tables",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"all-tables"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "campos_tabla",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/entities/table-data/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"table-data",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "alter_table",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tableName\": \"productos\",\r\n    \"fields\": {\r\n        \"nombre\": \"TEXT\",\r\n        \"proveedor\": \"TEXT\",\r\n        \"cantdad\": \"INTEGER\",\r\n        \"precio\": \"FLOAT\",\r\n        \"unidad\": \"TEXT\"\r\n\r\n    }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/entities/edit-table",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"edit-table"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_structur_table",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODY5NjYyLCJleHAiOjE3MzA4OTg0NjJ9.RqhNSTTqvhHhDIRngezOxUWYl-s76AOBhgJlmqgKsnA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/entities/table-structure/productos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"entities",
+								"table-structure",
+								"productos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get_users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_usar_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/users/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create_user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lalo Landa\",\r\n    \"email\": \"lalolanda@gmail.com\",\r\n    \"username\": \"lalito\",\r\n    \"password\": \"Lalo1234\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Juan Pérezsasdsadasd\",\r\n    \"email\": \"juan.perezsasffdasd@example.com\",\r\n    \"username\": \"juanpq12aaaa\",\r\n    \"password\": \"Secureassword1213\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/update/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"update",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMwODQ0NzM2LCJleHAiOjE3MzA4NzM1MzZ9.fPFUx6UXiLwOYADnSxfF6r-SQjhD2FnT2_7d4lTRrw4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/delete/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"delete",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "inicio",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"lalito\",\r\n    \"password\": \"Lalo1234\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
