@@ -7,7 +7,9 @@ import { LayoutService } from 'src/app/services/app.layout.service';
 import {DashboardService} from "../../services/dashboard/dashboard.service";
 
 @Component({
+
     selector: 'app-dashboard',
+    
     templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent {
