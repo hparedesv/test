@@ -1,0 +1,95 @@
+<p-panel [header]="'Tabla  de ' + tableName.toUpperCase()">
+    <p-table [value]="tableData" class="p-datatable-gridlines" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header">
+            <tr>
+                <!-- Genera dinámicamente los encabezados de la tabla -->
+                <th *ngFor="let field of formFields">
+                    {{ field.column_name | titlecase }}
+                </th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <!-- Genera dinámicamente las celdas de cada fila -->
+                <td *ngFor="let field of formFields">
+                    {{ row[field.column_name] }}
+                </td>
+                <th>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                            pTooltip="Editar"
+                            (click)="editItem(row)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                            pTooltip="Eliminar"
+                            (click)="deleteItem(row)"></button>
+                </th>
+            </tr>
+        </ng-template>
+    </p-table>
+
+</p-panel>
+<p-panel [header]="'Gestión de ' + tableName.toUpperCase()">
+
+    <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+        <div *ngFor="let field of formFields" class="mb-3">
+
+            <!--        {{field.column_name}}-->
+            <div *ngIf="!ignoreCaseCampos(field.column_name)">
+                <label [for]="field.column_name" class="block text-900 text-xl font-medium mb-2">
+                    {{ field.column_name | titlecase }}
+                </label>
+
+                <!-- Tipo de entrada basado en el tipo de dato -->
+                <input *ngIf="field.data_type === 'text'"
+                       [id]="field.column_name"
+                       type="text"
+                       [placeholder]="field.column_name | titlecase"
+                       pInputText
+                       [formControlName]="field.column_name"
+                       class="w-full md:w-30rem mb-5"
+                       style="padding:1rem"
+                       [ngClass]="{'ng-invalid ng-dirty': dynamicForm.get(field.column_name)?.invalid && dynamicForm.get(field.column_name)?.touched}">
+
+                <input *ngIf="field.data_type === 'integer' || field.data_type === 'double precision'"
+                       [id]="field.column_name"
+                       type="number"
+                       [placeholder]="field.column_name | titlecase"
+                       pInputText
+                       [formControlName]="field.column_name"
+                       class="w-full md:w-30rem mb-5"
+                       style="padding:1rem"
+                       [ngClass]="{'ng-invalid ng-dirty': dynamicForm.get(field.column_name)?.invalid && dynamicForm.get(field.column_name)?.touched}">
+
+                <input *ngIf="field.data_type.includes('timestamp')"
+                       [id]="field.column_name"
+                       type="datetime-local"
+                       [placeholder]="field.column_name | titlecase"
+                       pInputText
+                       [formControlName]="field.column_name"
+                       class="w-full md:w-30rem mb-5"
+                       style="padding:1rem"
+                       [ngClass]="{'ng-invalid ng-dirty': dynamicForm.get(field.column_name)?.invalid && dynamicForm.get(field.column_name)?.touched}">
+
+            </div>
+
+            <!--         Campo oculto para el id-->
+            <div *ngIf="ignoreCaseCampos(field.column_name)">
+                <input type="hidden" [formControlName]="field.column_name">
+            </div>
+        </div>
+
+        <button type="submit" pButton class="btn btn-primary" icon="pi pi-save" [disabled]="dynamicForm.invalid">
+            Submit
+        </button>
+        <button type="button" pButton class="btn btn-secondary ml-2" icon="pi pi-times"
+                *ngIf="flagEdition || dynamicForm.dirty"
+                (click)="cancel()">Cancelar
+        </button>
+
+
+        <button type="button" pButton label="Eliminar Entidad" icon="pi pi-trash" class="p-button-danger ml-2"
+                (click)="deleteEntity()"
+                *ngIf="tableName">
+        </button>
+    </form>
+</p-panel>

@@ -403,7 +403,6 @@ exports.getTableStructure = async (req, res) => {
             AND table_schema = 'public';
         `;
         const [columns] = await sequelize.query(structureSQL);
-
         // Mapear la estructura a un formato JSON
         const structure = columns.map(column => ({
             column_name: column.column_name,

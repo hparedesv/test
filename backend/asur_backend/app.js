@@ -17,9 +17,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 // Habilitar CORS
 app.use(cors({
-    origin: 'http://localhost:4200/', // Cambia esto por la URL de tu frontend
+    origin: 'http://localhost:4200',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true // Si necesitas enviar credenciales (cookies, autorización, etc.)
+    credentials: true
 }));
 // Middlewares
 app.use(logger('dev'));
@@ -41,7 +41,7 @@ sequelize.sync({ alter: true }) // Cambia esto a { alter: true } para ajustar la
     })
     .catch(error => {
         console.error('Error al sincronizar la base de datos:', error);
-        process.exit(1); // Opcional: salir del proceso en caso de error
+        process.exit(1);
     });
 
 module.exports = app;

@@ -19,13 +19,13 @@ router.delete('/delete-data/:tableName/:id', jwtController.authenticateToken, en
 router.delete('/delete-table/:tableName', jwtController.authenticateToken, entityController.deleteTable);
 
 // Obtener todas las tablas (entidades)
-router.get('/all-tables', jwtController.authenticateToken, entityController.getAllTables); // Proteger la ruta
+router.get('/all-tables', entityController.getAllTables);
 
 // Obtener datos de una tabla específica
-router.get('/table-data/:tableName', jwtController.authenticateToken, entityController.getTableData);
+router.get('/table-data/:tableName', entityController.getTableData);
 // Editar una tabla existente
 router.put('/edit-table', jwtController.authenticateToken, entityController.editTable);
 
 // Obtener la estructura de una tabla
-router.get('/table-structure/:tableName', jwtController.authenticateToken, entityController.getTableStructure); // Nueva ruta protegida
+router.get('/table-structure/:tableName',  entityController.getTableStructure);
 module.exports = router;

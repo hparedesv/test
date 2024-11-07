@@ -17,12 +17,12 @@ const User = sequelize.define('user', {
         unique: true,
         allowNull: false,
     },
-    username: {  // Campo para el nombre de usuario
+    username: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
     },
-    password: {  // Campo para la contraseña
+    password: {
         type: DataTypes.STRING,
         allowNull: false,
     },

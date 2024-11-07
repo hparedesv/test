@@ -4,102 +4,73 @@ import { Product } from '../../models/product';
 import { ProductService } from '../../services/service/product.service';
 import { Subscription, debounceTime } from 'rxjs';
 import { LayoutService } from 'src/app/services/app.layout.service';
+import {DashboardService} from "../../services/dashboard/dashboard.service";
 
 @Component({
+    selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class DashboardComponent {
+    entityName = '';
+    fieldsData: Array<{ name: string; type: string }> = [];
+    fieldTypes = [
+        { label: 'TEXT', value: 'TEXT' },
+        { label: 'INTEGER', value: 'INTEGER' },
+        { label: 'FLOAT', value: 'FLOAT' },
+        { label: 'DOUBLE PRECISION', value: 'DOUBLE PRECISION' },
+        { label: 'TIMESTAMP', value: 'TIMESTAMP' }
+    ];
 
-    items!: MenuItem[];
+    constructor(private dashboardService: DashboardService) {}
 
-    products!: Product[];
-
-    chartData: any;
-
-    chartOptions: any;
-
-    subscription!: Subscription;
-
-    constructor(private productService: ProductService, public layoutService: LayoutService) {
-        this.subscription = this.layoutService.configUpdate$
-        .pipe(debounceTime(25))
-        .subscribe((config) => {
-            this.initChart();
-        });
+    addField() {
+        this.fieldsData.push({ name: '', type: '' });
     }
 
-    ngOnInit() {
-        this.initChart();
-        this.productService.getProductsSmall().then(data => this.products = data);
-
-        this.items = [
-            { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-            { label: 'Remove', icon: 'pi pi-fw pi-minus' }
-        ];
+    removeField(index: number) {
+        this.fieldsData.splice(index, 1);
     }
 
-    initChart() {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    // Validar el nombre del campo
+    isFieldNameValid(name: string): boolean {
+        const regex = /^[a-z_]+$/; // Solo letras minúsculas y guiones bajos
+        return regex.test(name);
+    }
 
-        this.chartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'First Dataset',
-                    data: [65, 59, 80, 81, 56, 55, 40],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    borderColor: documentStyle.getPropertyValue('--bluegray-700'),
-                    tension: .4
-                },
-                {
-                    label: 'Second Dataset',
-                    data: [28, 48, 40, 19, 86, 27, 90],
-                    fill: false,
-                    backgroundColor: documentStyle.getPropertyValue('--green-600'),
-                    borderColor: documentStyle.getPropertyValue('--green-600'),
-                    tension: .4
-                }
-            ]
-        };
-
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                },
-                y: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                }
+    createEntity() {
+        // Verificar que todos los nombres de campos sean válidos y tengan tipo seleccionado
+        for (let field of this.fieldsData) {
+            if (!this.isFieldNameValid(field.name)) {
+                alert(`El nombre del campo '${field.name}' no es válido. Solo se permiten letras minúsculas y guiones bajos.`);
+                return;
             }
-        };
-    }
 
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+            if (!field.type) {
+                alert(`Por favor selecciona un tipo de dato para el campo '${field.name}'.`);
+                return;
+            }
         }
+        // Construimos el objeto fields como un mapa de nombre: tipo
+        const fields = this.fieldsData.reduce((acc, field) => {
+            acc[field.name] = field.type;
+            return acc;
+        }, {} as { [key: string]: string });
+
+        const tableData = {
+            tableName: this.entityName,
+            fields: fields
+        };
+
+        this.dashboardService.createTable(tableData).subscribe({
+            next: () => {
+                console.log('Entidad creada con éxito');
+                this.entityName = '';
+                this.fieldsData = [];
+            },
+            error: (error) => {
+                alert(`Error al crear la entidad: ${error.error.message}`);
+                console.error('Error en la creación:', error);
+            }
+        });
     }
 }

@@ -14,6 +14,10 @@ import { PhotoService } from './services/service/photo.service';
 import {ReactiveFormsModule} from "@angular/forms";
 import {AppConfigModule} from "./layout/config/config.module";
 import {AppConfigComponent} from "./layout/config/app.config.component";
+import {SidebarModule} from "primeng/sidebar";
+import {GlobalPrimengConfigModule} from "./global-primeng-config/global-primeng-config.module";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {AuthInterceptorService} from "./services/interceptors/auth-interceptor.service";
 
 @NgModule({
     declarations: [
@@ -23,8 +27,11 @@ import {AppConfigComponent} from "./layout/config/app.config.component";
     imports: [
         AppRoutingModule,
         ReactiveFormsModule,
-        AppLayoutModule],
+        AppLayoutModule,
+        GlobalPrimengConfigModule
+    ],
     providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true},
         { provide: LocationStrategy, useClass: PathLocationStrategy },
         CountryService,
         CustomerService,

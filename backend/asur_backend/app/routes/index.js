@@ -1,4 +1,3 @@
-// Importa las dependencias necesarias
 var express = require('express');
 var router = express.Router();
 const sequelize = require('../config/database');
@@ -11,7 +10,7 @@ sequelize.authenticate()
 
 // Define la ruta principal
 router.get('/', function(req, res, next) {
-  res.send('Bienvenido a la API'); // Puedes cambiar esto a un mensaje de bienvenida más sencillo si no usas vistas
+  res.send('Bienvenido a la API');
 });
 
 module.exports = router;

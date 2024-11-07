@@ -1,4 +1,3 @@
-// loggerMiddleware.js
 const loggerMiddleware = (req, res, next) => {
     const start = Date.now(); // Tiempo de inicio
 
